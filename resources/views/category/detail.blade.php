@@ -15,13 +15,17 @@
             <div class="card-body">
                 <div class="text-end mb-2">
                     {{-- button plus --}}
-                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addNew">
-                        Edit
-                    </button>
-
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Delete
-                    </button>
+                    <form action="{{ route('category.delete', $data->slug) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#addNew">
+                            Edit
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin dihapus?')">
+                            Delete
+                        </button>
+                    </form>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -36,7 +40,7 @@
                                     <td>{{ $item->category_name }}</td>
                                     <td>{{ $item->desc }}</td>
                                     <td>
-                                        <a href="{{ route('category.detail', $item->slug) }}" 
+                                        <a href="{{ route('category.detail', $item->slug) }}"
                                             class="btn btn-outline-success btn-sm">detail</a>
                                     </td>
                                 </tr>
@@ -69,7 +73,8 @@
                     <div class="modal-body">
                         <div class="form-group my-2">
                             <label for="">Category Name</label>
-                            <input type="text" name="category_name" value="{{ $data->category_name }}" class="form-control">
+                            <input type="text" name="category_name" value="{{ $data->category_name }}"
+                                class="form-control">
                         </div>
                         <div class="form-group my-2">
                             <label for="">Category Description</label>

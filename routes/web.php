@@ -20,5 +20,8 @@ Route::get('category/{parameter}', [CategoryController::class, 'detail'])
 Route::put('category/{parameter}', [CategoryController::class, 'update'])
 ->name('category.update');
 
+Route::delete('category/{parameter}', [CategoryController::class, 'delete'])
+->name('category.delete');
+
 
 

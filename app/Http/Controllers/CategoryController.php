@@ -61,5 +61,11 @@ class CategoryController extends Controller
         ->with('success','Category Created');
     }
 
+    public function delete($param)
+    {
+        $data = Category::where('slug', $param)->firstOrFail();
+        $data->delete();
+        return redirect()->route('category.index')->with('success','Category Deleted');
+    }
 
 }
