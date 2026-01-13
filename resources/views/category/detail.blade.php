@@ -4,8 +4,8 @@
     <div class="container mt-4">
         <div class="card bg-success text-white">
             <div class="card-body">
-                <h4>Categories</h4>
-                <span class="text-white">List of category from resources</span>
+                <h4>{{ $data->category_name }}</h4>
+                <span class="text-white">{{ $data->desc }}</span>
             </div>
         </div>
     </div>
@@ -16,18 +16,22 @@
                 <div class="text-end mb-2">
                     {{-- button plus --}}
                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addNew">
-                        Add New
+                        Edit
+                    </button>
+
+                    <button type="button" class="btn btn-danger btn-sm">
+                        Delete
                     </button>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <th>Category Name</th>
-                            <th>Desc</th>
+                            <th>Item Name</th>
+                            <th>Stock</th>
                             <th>#</th>
                         </thead>
                         <tbody>
-                            @forelse ($data as $item)
+                            @forelse ($items as $item)
                                 <tr>
                                     <td>{{ $item->category_name }}</td>
                                     <td>{{ $item->desc }}</td>
@@ -37,7 +41,9 @@
                                     </td>
                                 </tr>
                             @empty
-                                
+                                <tr>
+                                    <td colspan="3" class="text-center">Item Not Found</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -10,7 +11,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('category.index');
+        $data = Category::all();
+        return view('category.index', compact('data'));
     }
 
     public function store(Request $request)
@@ -25,9 +27,16 @@ class CategoryController extends Controller
             'desc' => $request->input('desc'),
             'slug' => Str::slug($request->input('category_name')).random_int(0,1000000),
         ];
-
-        Category::create($simpan);
+        Category::create($simpan); //menambahkan data ke database
         return redirect()->route('category.index')->with('success','Category Created');
-
     }
+
+    public function detail($param)
+    {
+        $data = Category::where('slug', $param)->firstOrFail();
+        $items = Item::where('category_id', $data->id)->get();
+        return view('category.detail', 
+        compact('data','items'));
+    }
+
 }

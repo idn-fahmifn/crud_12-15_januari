@@ -14,5 +14,8 @@ Route::get('category', [CategoryController::class, 'index'])
 Route::post('category', [CategoryController::class, 'store'])
 ->name('category.store');
 
+Route::get('category/{parameter}', [CategoryController::class, 'detail'])
+->name('category.detail');
+
 
 
