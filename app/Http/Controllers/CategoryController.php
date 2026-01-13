@@ -43,7 +43,6 @@ class CategoryController extends Controller
     {
 
         $data = Category::where('slug', $param)->firstOrFail(); //object
-        $edit = $data->id; //id yang dipilih dari object
 
         $request->validate([
             'category_name' => ['required','string', 'min:3', 'max:20'],
@@ -56,9 +55,9 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->input('category_name')).random_int(0,1000000),
         ];
 
-        $edit->update($simpan); //menyimmpan data baru data ke database
+        $data->update($simpan); //menyimmpan data baru data ke database
 
-        return redirect()->route('category.index')->with('success','Category Created');
+        return redirect()->route('category.show', $data->slug)->with('success','Category Created');
     }
 
 
