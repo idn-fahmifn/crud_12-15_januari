@@ -65,7 +65,8 @@ class CategoryController extends Controller
     {
         $data = Category::where('slug', $param)->firstOrFail();
         $data->delete();
-        return redirect()->route('category.index')->with('success','Category Deleted');
+        return redirect()->route('category.index')
+        ->with('success','Category Deleted');
     }
 
 }
