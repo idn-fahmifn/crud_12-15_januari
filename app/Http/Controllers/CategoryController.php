@@ -57,7 +57,8 @@ class CategoryController extends Controller
 
         $data->update($simpan); //menyimmpan data baru data ke database
 
-        return redirect()->route('category.show', $data->slug)->with('success','Category Created');
+        return redirect()->route('category.detail', $data->slug)
+        ->with('success','Category Created');
     }
 
 
