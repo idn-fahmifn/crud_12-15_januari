@@ -37,9 +37,7 @@
 
 
     {{-- area content --}}
-    <div class="container mt-4">
-        
-    </div>
+    @yield('content')
     {{-- end area --}}
 
 
