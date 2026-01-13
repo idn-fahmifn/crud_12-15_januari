@@ -17,5 +17,8 @@ Route::post('category', [CategoryController::class, 'store'])
 Route::get('category/{parameter}', [CategoryController::class, 'detail'])
 ->name('category.detail');
 
+Route::put('category/{parameter}', [CategoryController::class, 'update'])
+->name('category.update');
+
 
 

@@ -57,22 +57,23 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Category</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit {{ $data->category_name }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="{{ route('category.store') }}" method="post">
+                <form action="{{ route('category.update', $data->slug) }}" method="post">
 
                     @csrf
+                    @method('put')
 
                     <div class="modal-body">
                         <div class="form-group my-2">
                             <label for="">Category Name</label>
-                            <input type="text" name="category_name" class="form-control">
+                            <input type="text" name="category_name" value="{{ $data->category_name }}" class="form-control">
                         </div>
                         <div class="form-group my-2">
                             <label for="">Category Description</label>
-                            <textarea name="desc" class="form-control"></textarea>
+                            <textarea name="desc" class="form-control">{{ $data->desc }}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

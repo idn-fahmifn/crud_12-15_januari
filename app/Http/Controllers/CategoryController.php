@@ -39,4 +39,27 @@ class CategoryController extends Controller
         compact('data','items'));
     }
 
+    public function update(Request $request, $param)
+    {
+
+        $data = Category::where('slug', $param)->firstOrFail(); //object
+        $edit = $data->id; //id yang dipilih dari object
+
+        $request->validate([
+            'category_name' => ['required','string', 'min:3', 'max:20'],
+            'desc' => ['required'],
+        ]);
+
+        $simpan = [
+            'category_name' => $request->input('category_name'),
+            'desc' => $request->input('desc'),
+            'slug' => Str::slug($request->input('category_name')).random_int(0,1000000),
+        ];
+
+        $edit->update($simpan); //menyimmpan data baru data ke database
+
+        return redirect()->route('category.index')->with('success','Category Created');
+    }
+
+
 }
