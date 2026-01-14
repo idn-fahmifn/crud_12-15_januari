@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,6 @@ Route::put('item/{parameter}', [ItemController::class, 'update'])
 Route::delete('item/{parameter}', [ItemController::class, 'delete'])
 ->name('item.delete');
 
+
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
