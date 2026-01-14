@@ -4,8 +4,8 @@
     <div class="container mt-4">
         <div class="card bg-success text-white">
             <div class="card-body">
-                <h4>Categories</h4>
-                <span class="text-white">List of category from resources</span>
+                <h4>Items</h4>
+                <span class="text-white">List of item from resources</span>
             </div>
         </div>
     </div>
@@ -22,22 +22,23 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <th>Category Name</th>
-                            <th>Desc</th>
+                            <th>Item Name</th>
+                            <th>Category</th>
+                            <th>Stok</th>
                             <th>#</th>
                         </thead>
                         <tbody>
                             @forelse ($data as $item)
                                 <tr>
-                                    <td>{{ $item->category_name }}</td>
-                                    <td>{{ $item->desc }}</td>
+                                    <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->category }}</td>
+                                    <td>{{ $item->stok }}</td>
                                     <td>
-                                        <a href="{{ route('category.detail', $item->slug) }}" 
+                                        <a href="{{ route('item.detail', $item->slug) }}"
                                             class="btn btn-outline-success btn-sm">detail</a>
                                     </td>
                                 </tr>
                             @empty
-                                
                             @endforelse
                         </tbody>
                     </table>
@@ -51,21 +52,39 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Category</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="{{ route('category.store') }}" method="post">
+                {{-- jika sebuah form terdapat file, maka tambahkan atribut berikut : --}}
+                <form action="{{ route('item.store') }}" method="post" enctype="multipart/form-data">
 
                     @csrf
 
                     <div class="modal-body">
                         <div class="form-group my-2">
-                            <label for="">Category Name</label>
-                            <input type="text" name="category_name" class="form-control">
+                            <label for="">Item Name</label>
+                            <input type="text" name="item_name" class="form-control" required>
                         </div>
                         <div class="form-group my-2">
-                            <label for="">Category Description</label>
+                            <label for="">Category</label>
+                            <select name="category_id" class="form-control" required>
+                                <option value="">-Choose Category-</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Stok</label>
+                            <input type="number" name="stok" class="form-control" required>
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Image</label>
+                            <input type="file" name="image" accept="image/*" class="form-control" required>
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="">Item Description</label>
                             <textarea name="desc" class="form-control"></textarea>
                         </div>
                     </div>
