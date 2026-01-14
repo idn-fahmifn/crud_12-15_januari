@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ItemController extends Controller
@@ -70,22 +71,47 @@ class ItemController extends Controller
     public function update(Request $request, $param)
     {
 
-        $data = Category::where('slug', $param)->firstOrFail(); //object
+        $data = Item::where('slug', $param)->firstOrFail(); //object
 
         $request->validate([
-            'category_name' => ['required', 'string', 'min:3', 'max:20'],
+            'item_name' => ['required', 'string', 'min:3', 'max:20'],
+            'category_id' => ['required', 'integer'],
+            'stok' => ['required', 'integer', 'min:0', 'max:1000'],
+            'image' => ['file', 'max:10240', 'mimes:png,jpg,jpeg,svg,webp'],
             'desc' => ['required'],
         ]);
 
         $simpan = [
-            'category_name' => $request->input('category_name'),
+            'item_name' => $request->input('item_name'),
             'desc' => $request->input('desc'),
-            'slug' => Str::slug($request->input('category_name')) . random_int(0, 1000000),
+            'category_id' => $request->input('category_id'),
+            'stok' => $request->input('stok'),
+            'slug' => Str::slug($request->input('item_name')) . random_int(0, 1000000),
         ];
 
-        $data->update($simpan); //menyimmpan data baru data ke database
+        // kondisi saat upload file
+        if ($request->hasFile('image')) {
 
-        return redirect()->route('category.detail', $data->slug)
+            // hapus file lama
+
+            $path_lama = 'public/images/items/' . $data->image;
+
+            // jika path lama ada maka akan dihapus;
+            if($data->image && Storage::exists($path_lama)) {
+                Storage::delete($path_lama);
+            }
+
+            $gambar = $request->file('image'); //mengambil data file yang diupload oleh user
+            $path = 'public/images/items'; //path penyimpanan
+            $ext = $gambar->getClientOriginalExtension();
+            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') .'.'. $ext;
+
+            // nilai yang akan disimpan ke database : 
+            $simpan['image'] = $nama;
+            $gambar->storeAs($path, $nama);
+        }
+        $data->update($simpan); //menyimmpan data baru data ke database
+        return redirect()->route('item.detail', $data->slug)
             ->with('success', 'Category Created');
     }
 
