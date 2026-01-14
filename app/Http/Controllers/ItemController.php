@@ -44,17 +44,17 @@ class ItemController extends Controller
             $gambar = $request->file('image'); //mengambil data file yang diupload oleh user
             $path = 'public/images/items'; //path penyimpanan
             $ext = $gambar->getClientOriginalExtension();
-            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') . $ext;
+            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') .'.'. $ext;
 
             // nilai yang akan disimpan ke database : 
             $simpan['image'] = $nama;
+            $gambar->storeAs($path, $nama);
 
         }
 
-        return $simpan;
 
-        // Item::create($simpan); //menambahkan data ke database
-        // return redirect()->route('category.index')->with('success', 'Item Created');
+        Item::create($simpan); //menambahkan data ke database
+        return redirect()->route('item.index')->with('success', 'Item Created');
     }
 
     public function detail($param)
