@@ -21,13 +21,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-2">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#"> 🏠 Home</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="#">Kategori</a>
+                        <a class="nav-link" href="{{ route('category.index') }}"> 🏷️ Categories</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="#">Barang</a>
+                        <a class="nav-link" href="{{ route('item.index') }}"> 💼 Items</a>
                     </li>
                 </ul>
             </div>

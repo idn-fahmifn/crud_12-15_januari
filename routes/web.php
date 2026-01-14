@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,5 +24,20 @@ Route::put('category/{parameter}', [CategoryController::class, 'update'])
 Route::delete('category/{parameter}', [CategoryController::class, 'delete'])
 ->name('category.delete');
 
+// Route Item
+Route::get('item', [ItemController::class, 'index'])
+->name('item.index');
+
+Route::post('item', [ItemController::class, 'store'])
+->name('item.store');
+
+Route::get('item/{parameter}', [ItemController::class, 'detail'])
+->name('item.detail');
+
+Route::put('item/{parameter}', [ItemController::class, 'update'])
+->name('item.update');
+
+Route::delete('item/{parameter}', [ItemController::class, 'delete'])
+->name('item.delete');
 
 
