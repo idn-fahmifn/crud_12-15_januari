@@ -45,7 +45,7 @@ class ItemController extends Controller
             $gambar = $request->file('image'); //mengambil data file yang diupload oleh user
             $path = 'public/images/items'; //path penyimpanan
             $ext = $gambar->getClientOriginalExtension();
-            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') .'.'. $ext;
+            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') . '.' . $ext;
 
             // nilai yang akan disimpan ke database : 
             $simpan['image'] = $nama;
@@ -97,14 +97,14 @@ class ItemController extends Controller
             $path_lama = 'public/images/items/' . $data->image;
 
             // jika path lama ada maka akan dihapus;
-            if($data->image && Storage::exists($path_lama)) {
+            if ($data->image && Storage::exists($path_lama)) {
                 Storage::delete($path_lama);
             }
 
             $gambar = $request->file('image'); //mengambil data file yang diupload oleh user
             $path = 'public/images/items'; //path penyimpanan
             $ext = $gambar->getClientOriginalExtension();
-            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') .'.'. $ext;
+            $nama = 'item-image-' . Carbon::now('Asia/Jakarta')->format('Ymdhis') . '.' . $ext;
 
             // nilai yang akan disimpan ke database : 
             $simpan['image'] = $nama;
@@ -112,14 +112,22 @@ class ItemController extends Controller
         }
         $data->update($simpan); //menyimmpan data baru data ke database
         return redirect()->route('item.detail', $data->slug)
-            ->with('success', 'Category Created');
+            ->with('success', 'Item Created');
     }
 
     public function delete($param)
     {
-        $data = Category::where('slug', $param)->firstOrFail();
+        $data = Item::where('slug', $param)->firstOrFail();
+
+        $path_lama = 'public/images/items/' . $data->image;
+
+        // jika path lama ada maka akan dihapus;
+        if ($data->image && Storage::exists($path_lama)) {
+            Storage::delete($path_lama);
+        }
+
         $data->delete();
-        return redirect()->route('category.index')
-            ->with('success', 'Category Deleted');
+        return redirect()->route('item.index')
+            ->with('success', 'Item Deleted');
     }
 }
