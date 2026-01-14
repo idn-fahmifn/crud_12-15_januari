@@ -59,6 +59,9 @@
                                     </td>
                                 </tr>
                             @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">Item Not Found</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

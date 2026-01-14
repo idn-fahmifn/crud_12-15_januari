@@ -50,12 +50,14 @@
                                     <td>{{ $item->category_name }}</td>
                                     <td>{{ $item->desc }}</td>
                                     <td>
-                                        <a href="{{ route('category.detail', $item->slug) }}" 
+                                        <a href="{{ route('category.detail', $item->slug) }}"
                                             class="btn btn-outline-success btn-sm">detail</a>
                                     </td>
                                 </tr>
                             @empty
-                                
+                                <tr>
+                                    <td colspan="3" class="text-center">Item Not Found</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

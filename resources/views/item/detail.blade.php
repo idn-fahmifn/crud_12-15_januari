@@ -4,7 +4,7 @@
     <div class="container mt-4">
         <div class="card bg-success text-white">
             <div class="card-body">
-                <h4>{{ $data->category_name }}</h4>
+                <h4>{{ $data->item_name }}</h4>
                 <span class="text-white">{{ $data->desc }}</span>
             </div>
         </div>
@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="text-end mb-2">
                     {{-- button plus --}}
-                    <form action="{{ route('category.delete', $data->slug) }}" method="post">
+                    <form action="{{ route('item.delete', $data->slug) }}" method="post">
                         @csrf
                         @method('delete')
                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
@@ -27,31 +27,27 @@
                         </button>
                     </form>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <th>Item Name</th>
-                            <th>Stock</th>
-                            <th>#</th>
-                        </thead>
-                        <tbody>
-                            @forelse ($items as $item)
-                                <tr>
-                                    <td>{{ $item->category_name }}</td>
-                                    <td>{{ $item->desc }}</td>
-                                    <td>
-                                        <a href="{{ route('category.detail', $item->slug) }}"
-                                            class="btn btn-outline-success btn-sm">detail</a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="3" class="text-center">Item Not Found</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+
+                <div class="my-2">
+                    <p class="fw-bold">Item Name : </p>
+                    <span class="text-muted">{{ $data->item_name }}</span>
                 </div>
+                <div class="my-2">
+                    <p class="fw-bold">Category : </p>
+                    <span class="text-muted">{{ $data->category->category_name }}</span>
+                </div>
+                <div class="my-2">
+                    <p class="fw-bold">Stock : </p>
+                    <span class="text-muted">{{ $data->stok }}</span>
+                </div>
+                <div class="my-2">
+                    <p class="fw-bold">Description : </p>
+                    <span class="text-muted">{{ $data->desc }}</span>
+                </div>
+                <div class="my-2">
+                    <img src="{{ asset('storage/images/items/'.$data->image) }}" class="img-fluid w-full" width="300px" alt="image Item">
+                </div>
+
             </div>
         </div>
     </div>

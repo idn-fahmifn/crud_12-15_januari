@@ -59,11 +59,11 @@ class ItemController extends Controller
 
     public function detail($param)
     {
-        $data = Category::where('slug', $param)->firstOrFail();
-        $items = Item::where('category_id', $data->id)->get();
+        $data = Item::where('slug', $param)->firstOrFail();
+        $category = Category::all();
         return view(
-            'category.detail',
-            compact('data', 'items')
+            'item.detail',
+            compact('data', 'category')
         );
     }
 

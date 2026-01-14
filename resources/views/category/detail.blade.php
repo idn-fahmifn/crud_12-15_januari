@@ -37,10 +37,10 @@
                         <tbody>
                             @forelse ($items as $item)
                                 <tr>
-                                    <td>{{ $item->category_name }}</td>
-                                    <td>{{ $item->desc }}</td>
+                                    <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->stok }}</td>
                                     <td>
-                                        <a href="{{ route('category.detail', $item->slug) }}"
+                                        <a href="{{ route('item.detail', $item->slug) }}"
                                             class="btn btn-outline-success btn-sm">detail</a>
                                     </td>
                                 </tr>
